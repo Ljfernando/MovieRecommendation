@@ -2,11 +2,6 @@
 This Movie Recommendation program utilizes collaborative filtering to recommend movies the user may enjoy. Data used is original data from MovieLens(link below). It will ask a user to rate 50 random movies on a scale from 0 to 5 where the 0 value means that the user has not seen the movie. The ratings are stored as a vector. This vector is then compared to other user’s ratings using two different similarity measurements: Cosine similarity and Jaccard similarity. The 5 most similar user vectors are then utilized to recommend up to five different movies which are outputted to the console and as a text file. Movies that are recommended must have been rated a 5 by the recorded similar user. Two lists of recommended movies are created based on the two different similarity metrics and both lists can then be viewed. 
 
 
-### Running The Program
-
-Download all necessary txt files(‘movies.txt’ & movieRatings.txt’) and the ‘MovieRecommendation.py’ file. Simply run the python file using command ’python MovieRecommendation.py’ on command line or program of choice. You will then be asked to rate 50 random movies. Your rating profile will be saved in your current directory as ‘profile.txt’. The list of recommended movies will be saved as ‘cosRecommendedMovies.txt’ for movies recommended by the Cosine similarity metric and as ‘jacRecommendedMovies.txt’ for movies recommended by the Jaccard similarity metric.
-
-
 ### Similarity Metrics
 **Cosine Similarity**:
 ~~~~~~~~~~~~~~~
@@ -35,6 +30,11 @@ sim(x,y) = (x ∩ y)/ (x ∪ y) where x and y are vectors.
 
 The similarity values will be bounded from [0:1] where larger values equate to a stronger similarity.
 ~~~~~~~~~~~~~~~
+
+
+### Running The Program
+
+Download all necessary txt files(‘movies.txt’ & movieRatings.txt’) and the ‘MovieRecommendation.py’ file. Simply run the python file using command ’python MovieRecommendation.py’ on command line or program of choice. You will then be asked to rate 50 random movies. Your rating profile will be saved in your current directory as ‘profile.txt’. The list of recommended movies will be saved as ‘cosRecommendedMovies.txt’ for movies recommended by the Cosine similarity metric and as ‘jacRecommendedMovies.txt’ for movies recommended by the Jaccard similarity metric.
 
 
 ### Files
