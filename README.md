@@ -6,7 +6,7 @@ In order to run this program, download all necessary txt files(‘movies.txt’ 
 ————————————
 Similarity Metrics
 ————————————
-
+~~~~~~~~~~~~~~~
 Cosine Similarity:
 This approach defines the similarity between two users x and y as:
 sim(x,y) = (x . y)/ ||x|| * ||y|| where x and y are vectors and (.) represents the dot product.
@@ -28,6 +28,7 @@ sim(x,y) = (x ∩ y)/ (x ∪ y) where x and y are vectors.
 ∪ is the union between the two sets. This value is the number of movies that could have possibly been rated. All movies are accounted for, regardless of whether or not it was watched and rated.
 
 All similarity values will be bounded from [0:1] where larger values equate to a stronger similarity.
+~~~~~~~~~~~~~~~
 
 
 ————————————
@@ -92,7 +93,8 @@ printRecommendedMovies(file1, file2, simType):
 main():
 -Calls computeRecommendation() method with given parameters for file names
 -Then prints recommended movies to console based on the users choice of similarity type.
-~~~~~~~~~~~~~~~~~
+
+
 Data Files:
 
 movies.txt
@@ -113,5 +115,3 @@ Both data files downloaded from http://grouplens.org/datasets/movielens/
 
 ~~~~~~~~~~~~~~~~~~~~
 Author: Lance Fernando
-
- 
