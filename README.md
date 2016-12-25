@@ -1,16 +1,18 @@
+# Movie Recommendation Program
 This Movie Recommendation program utilizes collaborative filtering to recommend movies the user may enjoy. Data used is original data from MovieLens(link below). It will ask a user to rate 50 random movies on a scale from 0 to 5 where the 0 value means that the user has not seen the movie. The ratings are stored as a vector. This vector is then compared to other user’s ratings using two different similarity measurements: Cosine similarity and Jaccard similarity. The 5 most similar user vectors are then utilized to recommend up to five different movies which are outputted to the console and as a text file. Movies that are recommended must have been rated a 5 by the recorded similar user. Two lists of recommended movies are created based on the two different similarity metrics and both lists can then be viewed. 
 
 
 ————————————
-Running The Program
+### Running The Program
 ————————————
 Download all necessary txt files(‘movies.txt’ & movieRatings.txt’) and the ‘MovieRecommendation.py’ file. Simply run the python file using command ’python MovieRecommendation.py’ on command line or program of choice. You will then be asked to rate 50 random movies. Your rating profile will be saved in your current directory as ‘profile.txt’. The list of recommended movies will be saved as ‘cosRecommendedMovies.txt’ for movies recommended by the Cosine similarity metric and as ‘jacRecommendedMovies.txt’ for movies recommended by the Jaccard similarity metric.
 
 
 ————————————
-Similarity Metrics
+### Similarity Metrics
 ————————————
-Cosine Similarity:
+~~~~~~~~~~~~~~~
+**Cosine Similarity**:
 This approach defines the similarity between two users x and y as:
 sim(x,y) = (x . y)/ ||x|| * ||y|| where x and y are vectors and (.) represents the dot product.
 
@@ -25,22 +27,25 @@ ex. a <- [1, 0, 3]
 The similarity values will be bounded from [0:1] where larger values equate to a stronger similarity.
 
 
-Jaccard Similarity: 
+**Jaccard Similarity**: 
 This approach defines the similarity between users x and y as:
 sim(x,y) = (x ∩ y)/ (x ∪ y) where x and y are vectors.
 ∩ is the intersection between two sets. For this program, the vectors x and y intersect where the values as the same index are ≥ 3. This allows for rated movies to only count if they are more preferable than not (given a rating of 3 or greater). 
 
 ∪ is the union between the two sets. This value is the number of movies that could have possibly been rated. All movies are accounted for, regardless of whether or not it was watched and rated.
 
-The similarity value will be bounded from [0:1] where larger values equate to a stronger similarity.
+The similarity values will be bounded from [0:1] where larger values equate to a stronger similarity.
+~~~~~~~~~~~~~~~
+
 
 
 ————————————
-Files
+### Files
 ————————————
-Python File:\n
-MovieRecommendation.py
 ~~~~~~~~~~~~~~~~~
+**Python File**:
+
+*MovieRecommendation.py*
 Methods:
 readMovies(filename):
 -Takes in the text file of movies to create an array of all the movies. 
@@ -96,23 +101,25 @@ printRecommendedMovies(file1, file2, simType):
 main():
 -Calls computeRecommendation() method with given parameters for file names
 -Then prints recommended movies to console based on the users choice of similarity type.
-~~~~~~~~~~~~~~~~~~~~
 
-Data Files:
-~~~~~~~~~~~~~~~~~~~~
-movies.txt
+
+**Data Files:**
+
+*movies.txt*
 -Text file of different movie attributes separated by ‘|’. 
 -First index contains the movie ID
 -Second index is the movie title
 -Other attributes are ignored
 
-movieRatings.txt
+*movieRatings.txt*
 -Text file of over 100k different ratings for movies mentioned in the ‘movies.txt’ file
 -First index is the user ID
 -Second index is the movie ID
 -Third index is the user’s rating of the movie
 -Other attributes are ignored
 
-Both data files downloaded from http://grouplens.org/datasets/movielens/
+[Both data files downloaded here](http://grouplens.org/datasets/movielens/)
+
+
 ~~~~~~~~~~~~~~~~~~~~
-Author: Lance Fernando
+**Author: Lance Fernando**
