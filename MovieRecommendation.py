@@ -18,7 +18,7 @@ def readMovies(filename):
 ## Function uses given list and asks user to rate each movie in list and stores each
 ## rating into given filename
 def profilemaker(filename, movieList):
-    ratingArray = ['0'] * 1682 #number of movies
+    ratingArray = ['0'] * len(movieList) #number of movies
     randomMovies = random.sample(range(1,len(movieList)), 50)
     ratingString = ''
     print("Please create your profile by rating the following movies from 0 to 5 (0 if not watched): ")
@@ -77,22 +77,49 @@ def movieRatings(filename):
             ratingDict[line[0]] = templist
             #setting the value of the user in dictionary to full rating list
         else:
+
             ratingDict[line[0]] = [[int(line[1]), int(line[2])]]
+
             #If user is not in dictionary yet, this will add user
             #and the user's rating
     ratings.close()
     return ratingDict
 
-def dotProduct(user1, user2):
+def computeCosSim(user1, user2):
 	dotProd = 0
+	user2Prod = 0
+	user1Prod = 0
 
-	for rating in range(len(user1)):
-		dotProd += user1[rating] * user2[rating]
+	for i in range(len(user2)):
 
-	return dotProd
+		movieID = user2[i][0]
+		rating = user2[i][1]
+
+		dotProd += rating * user1[movieID - 1]
+
+		user2Prod += rating **2
+
+	for i in range(len(user1)):
+
+		user1Prod += user1[i] **2
+
+	return float(dotProd)/(float(user1Prod)*float(user2Prod))
+
+def computeJacSim(user1, user2):
+
+	intersection = 0
+	union = len(user1)
+
+	for i in range(len(user2)):
+
+		movieID = user2[i][0]
+		rating = user2[i][1]
+		if user1[movieID - 1] >= 3 and rating >=3:
+			intersection += 1
+	return float(intersection)/float(union)
 
 
-def computeRecommendation(ratingFile, moviesFile, userFile, recommendedFile):
+def computeRecommendation(ratingFile, moviesFile, userFile, recCosFile, recJacFile):
     """Function will call all previous functions and determine movies
     that the user should watch by comparing their ratings to the ratings of
     other users. Movies that are recommended must have a rating of 5 by the calculated
@@ -101,39 +128,35 @@ def computeRecommendation(ratingFile, moviesFile, userFile, recommendedFile):
     movieList = readMovies(moviesFile)
     profilemaker(userFile, movieList)
     userRatings = readProfile(userFile)
-    file = open(recommendedFile, 'w')
-    top5List = []
+
+    cosFile = open(recCosFile, 'w')
+    jacFile = open(recJacFile, 'w')
+
+    top5ListCos = []
+    top5ListJac = []
     #creating empty list for top 5 compatible users
-    recommendList = []
+    recommendListCos = []
+    recommendListJac = []
     #creating empty recommended movie list for
 
-    selfProduct = dotProduct(userRatings, userRatings)#dot product of user ratings with itself
-
     for user in ratingDict.keys():
-        value = ratingDict[user]
+        otherUsers = ratingDict[user]
 
-        compatibleSum = 0
-        #using summation variable to compute dot product
+        cosSim = computeCosSim(userRatings, otherUsers)
 
-        otherSelfProd = 0 # dot product of other users with themselves
+        jacSim = computeJacSim(userRatings, otherUsers)
 
-        for i in range(0, len(value)):
-            movieNum = value[i][0]
-            rating = value[i][1]
-            compatibleSum += userRatings[movieNum-1] * rating 
-            #incorporating dot product by multiplying personal rating to user's rating
-            #cumulating each product to test compatibility
+        top5ListCos.append([cosSim, user])
+        top5ListJac.append([jacSim, user])
 
-            otherSelfProd += rating**2 #computing dot product of itself
-        cosineSim = float(compatibleSum)/ float(selfProduct * otherSelfProd)
-        top5List.append([cosineSim, user])
-    top5List = sorted(top5List, reverse = True)
-    #sorting list in reverse from largest to smallest
-    top5List = top5List[0:5]
+    top5ListCos = sorted(top5ListCos, reverse = True)
+    top5ListJac = sorted(top5ListJac, reverse = True)
 
-    #list becomes the top 5 similar users
+    top5ListCos = top5ListCos[0:5]
+    top5ListJac = top5ListJac[0:5]
+
     for sim in range(0, 5):
-        key = top5List[sim][1]
+        key = top5ListCos[sim][1]
         movies = ratingDict[key]
         counter = 1
         for i in range(0, len(movies)):
@@ -142,22 +165,81 @@ def computeRecommendation(ratingFile, moviesFile, userFile, recommendedFile):
                 if movies[i][1] == 5 and userRatings[movies[i][0]] == 0:
                     #if the user rated the movie 5 and I have not watched the movie yet
                     movieID = movies[i][0]
-                    if movieList[movieID] not in recommendList:
+                    if movieList[movieID] not in recommendListCos:
                         #If movie title is not in list
-                        recommendList.append(movieList[movieID])
+                        recommendListCos.append(movieList[movieID])
                         counter += 1
             else:
                 break
-    for i in range(0, len(recommendList)):
-        file.write(recommendList[i] + '\n')
-    file.close()
-    return recommendList
+    for sim in range(0, 5):
+        key = top5ListJac[sim][1]
+        movies = ratingDict[key]
+        counter = 1
+        for i in range(0, len(movies)):
+            if counter <= 5:
+                #allows each user to recommend no more than 5 movies
+                if movies[i][1] == 5 and userRatings[movies[i][0]] == 0:
+                    #if the user rated the movie 5 and I have not watched the movie yet
+                    movieID = movies[i][0]
+                    if movieList[movieID] not in recommendListJac:
+                        #If movie title is not in list
+                        recommendListJac.append(movieList[movieID])
+                        counter += 1
+            else:
+                break
+    for i in range(0, len(recommendListCos)):
+        cosFile.write(recommendListCos[i] + '\n')
+    cosFile.close()
+
+    for i in range(0, len(recommendListJac)):
+        jacFile.write(recommendListJac[i] + '\n')
+    jacFile.close()
+
+
+def getSimilarityType():
+
+	print("We have computed recommendations based on two different similarity metrics. ")
+	similarity = raw_input("Enter 0 for Cosine Similarity recommendations or 1 for Jaccard Similarity recommendations: ")
+
+	while(not(similarity.isdigit()) or int(similarity) not in range(0,2)):
+		similarity = raw_input("Please enter a valid entry [0 or 1]: ")
+
+	return int(similarity)
+
+
+def printMoviesFromFile(filename):
+	file = open(filename, 'r')
+	for line in file:
+		print(line)
+	file.close()
+
+def printRecommendedMovies(file1, file2, simType):
+
+	if simType == 0:
+		print("Here are your recommendations based on Cosine similarity. \n")
+		printMoviesFromFile(file1)
+
+		response = raw_input("Would you like to view recommended movies based on Jaccard similarity? Yes or No: ")
+		if response.lower() == 'yes':
+			printMoviesFromFile(file2)
+	else:
+		print("Here are your recommendations based on Jaccard similarity. \n")
+		printMoviesFromFile(file2)
+
+		response = raw_input("Would you like to view recommended movies based on Cosine similarity? Yes or No: ")
+		if response.lower() == 'yes':
+			printMoviesFromFile(file1)
+
 
 def main():
-    recommendList = computeRecommendation('movieRatings.txt', 'movies.txt', 'profile.txt', 'recommendedMovies.txt')
-    print('Based on your ratings and others that have rated similarly we have created a list in no particular order of movies for you to watch:')
-    for each in recommendList:
-        print(each)
+
+    computeRecommendation('movieRatings.txt', 'movies.txt', 'profile.txt', 'cosRecommendedMovies.txt', 'jacRecommendedMovies.txt')
+    
+    print('Based on your ratings and others that have rated similarly we have created a list in no particular order of movies for you to watch. \n')
+    
+    simType = getSimilarityType()
+
+    printRecommendedMovies('cosRecommendedMovies.txt', 'jacRecommendedMovies.txt', simType)
     
 main()
 
