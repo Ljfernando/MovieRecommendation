@@ -33,6 +33,7 @@ All similarity values will be bounded from [0:1] where larger values equate to a
 ————————————
 Files
 ————————————
+~~~~~~~~~~~~~~~~~
 Python File:
 
 MovieRecommendation.py
@@ -91,7 +92,7 @@ printRecommendedMovies(file1, file2, simType):
 main():
 -Calls computeRecommendation() method with given parameters for file names
 -Then prints recommended movies to console based on the users choice of similarity type.
-
+~~~~~~~~~~~~~~~~~
 Data Files:
 
 movies.txt
