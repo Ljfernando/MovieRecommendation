@@ -36,61 +36,61 @@ Files
 Python File:
 
 MovieRecommendation.py
-	Methods:
-	readMovies(filename):
-	-Takes in the text file of movies to create an array of all the movies. 
-	-The index of the movie is based on the movie ID - 1 since indexing begins at 0.
-	-Returns array of movies
+Methods:
+readMovies(filename):
+-Takes in the text file of movies to create an array of all the movies. 
+-The index of the movie is based on the movie ID - 1 since indexing begins at 0.
+-Returns array of movies
 
-	profileMaker(filename,movieList):
-	-Creates a profile(vector) of movie ratings.
-	-Movies rated are randomly selected from moveList array.
-	-This vector is written to a text file designated as filename.
+profileMaker(filename,movieList):
+-Creates a profile(vector) of movie ratings.
+-Movies rated are randomly selected from moveList array.
+-This vector is written to a text file designated as filename.
 
-	readProfile(filename):
-	-Takes in a given file of a single users ratings.
-	-Returns an array of the users ratings
+readProfile(filename):
+-Takes in a given file of a single users ratings.
+-Returns an array of the users ratings
 
-	movieRatings(filename):
-	-Takes in a given file of movie ratings.
-	-The file is split to read line by line
-	-Each line is added to a dictionary where the key is the user number
-	-The value is a 2D list where the first column is the movie ID and the second is the user’s rating of that movie
-	-Returns the dictionary
+movieRatings(filename):
+-Takes in a given file of movie ratings.
+-The file is split to read line by line
+-Each line is added to a dictionary where the key is the user number
+-The value is a 2D list where the first column is the movie ID and the second is the user’s rating of that movie
+-Returns the dictionary
 
-	computeCosSim(user1, user2):
-	-Computes the cosine similarity value [0:1] 
-	-user1 is a vector of ratings from the user running program
-	-user2 is a list of lists of a single users movieID and rating
-	-Returns cosine similarity value
+computeCosSim(user1, user2):
+-Computes the cosine similarity value [0:1] 
+-user1 is a vector of ratings from the user running program
+-user2 is a list of lists of a single users movieID and rating
+-Returns cosine similarity value
 
-	computeJacSim(user1, user2):
-	-Computes Jaccard similarity value [0:1]
-	-similar parameters as computeCosSim() method
-	-Returns Jaccard similarity value
+computeJacSim(user1, user2):
+-Computes Jaccard similarity value [0:1]
+-similar parameters as computeCosSim() method
+-Returns Jaccard similarity value
 
-	computeRecommendation(ratingFile, moviesFile, userFile, recCosFile, recJacFile):
-	-Utilizes the dictionary of ratings and computes the cosine and jaccard similarity of each user to the original user
-	-Two lists of users based on their cosine similarity metric and jacquard similarity metric are created and sorted from 	greatest to least(most similar to least similar)
-	-The 5 most similar users are then analyzed to find at most five movies to recommend to the original user that they have not yet seen.
-	-Movies that are rated a 5 by the similar users are added to a recommendation list.
-	-Two separate lists of recommended movies based on their respective similarity metric are then written to the given text files.
+computeRecommendation(ratingFile, moviesFile, userFile, recCosFile, recJacFile):
+-Utilizes the dictionary of ratings and computes the cosine and jaccard similarity of each user to the original user
+-Two lists of users based on their cosine similarity metric and jacquard similarity metric are created and sorted from 	greatest to least(most similar to least similar)
+-The 5 most similar users are then analyzed to find at most five movies to recommend to the original user that they have not yet seen.
+-Movies that are rated a 5 by the similar users are added to a recommendation list.
+-Two separate lists of recommended movies based on their respective similarity metric are then written to the given text files.
 
-	getSimilarityType():
-	-Asks user for which similarity metric they prefer to use
-	-Returns 0 for Cosine similarity and 1 for Jaccard similarity
+getSimilarityType():
+-Asks user for which similarity metric they prefer to use
+-Returns 0 for Cosine similarity and 1 for Jaccard similarity
 
-	printMoviesFromFile(filename):
-	-Reads in given file of movies
-	-Prints each movie line by line to console
+printMoviesFromFile(filename):
+-Reads in given file of movies
+-Prints each movie line by line to console
 
-	printRecommendedMovies(file1, file2, simType):
-	-Calls printMoviesFromFile() depending on simType value
-	-Then proceeds to ask if user would like to view recommended movies based on other metric
+printRecommendedMovies(file1, file2, simType):
+-Calls printMoviesFromFile() depending on simType value
+-Then proceeds to ask if user would like to view recommended movies based on other metric
 
-	main():
-	-Calls computeRecommendation() method with given parameters for file names
-	-Then prints recommended movies to console based on the users choice of similarity type.
+main():
+-Calls computeRecommendation() method with given parameters for file names
+-Then prints recommended movies to console based on the users choice of similarity type.
 
 Data Files:
 
