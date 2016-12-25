@@ -3,10 +3,8 @@ This Movie Recommendation program utilizes collaborative filtering to recommend 
 
 
 ### Running The Program
-~~~~~~~~~~~~~~~
 
 Download all necessary txt files(‘movies.txt’ & movieRatings.txt’) and the ‘MovieRecommendation.py’ file. Simply run the python file using command ’python MovieRecommendation.py’ on command line or program of choice. You will then be asked to rate 50 random movies. Your rating profile will be saved in your current directory as ‘profile.txt’. The list of recommended movies will be saved as ‘cosRecommendedMovies.txt’ for movies recommended by the Cosine similarity metric and as ‘jacRecommendedMovies.txt’ for movies recommended by the Jaccard similarity metric.
-~~~~~~~~~~~~~~~
 
 
 ### Similarity Metrics
@@ -117,6 +115,6 @@ movieRatings.txt
 -Other attributes are ignored
 ~~~~~~~~~~~~~~~~~
 
-[Both data files downloaded here](http://grouplens.org/datasets/movielens/)
+[Both data files can be downloaded here](http://grouplens.org/datasets/movielens/)
 
 **Author: Lance Fernando**
