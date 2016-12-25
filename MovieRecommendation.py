@@ -95,7 +95,7 @@ def movieRatings(filename):
     return ratingDict
 
 """Takes a vector of ratings (user1) and a list of lists with movie IDs and their respective ratings
-	as user2 and returns the item-item cosine similarity between movies rated."""
+	as user2 and returns the cosine similarity between users."""
 def computeCosSim(user1, user2):
 	dotProd = 0
 	user2Prod = 0
@@ -119,7 +119,7 @@ def computeCosSim(user1, user2):
 	return float(dotProd)/(float(user1Prod)*float(user2Prod))
 
 """Takes a vector of ratings (user1) and a list of lists with movie IDs and their respective ratings
-	as user2 returns the item-item jaccard similarity between movies rated."""
+	as user2 returns the jaccard similarity between users."""
 def computeJacSim(user1, user2):
 
 	intersection = 0
