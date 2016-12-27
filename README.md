@@ -6,7 +6,7 @@ This Movie Recommendation program utilizes collaborative filtering to recommend 
 ***Cosine Similarity:***
 ~~~~~~~~~~~~~~~
 This approach defines the similarity between two users x and y as:
-sim(x,y) = (x . y)/ ||x|| * ||y|| where x and y are vectors and (.) represents the dot product.
+sim(x,y) = (x . y)/ √||x|| * √||y|| where x and y are vectors and (.) represents the dot product.
 
 Dot product of two vectors is the result of their linear combination.
 ex. a <- [1, 0, 3]; b <- [2, 1, 1]
@@ -32,9 +32,20 @@ The similarity values will be bounded from [0:1] where larger values equate to a
 ~~~~~~~~~~~~~~~
 
 
+***Pearson Correlation Coefficient(PCC):***
+~~~~~~~~~~~~~~~
+This approach defines the similarity between users x and y as:
+sim(x,y) = [∑(x-a)*(y-b)] / [√(∑x^2) * √(∑y^2)] where x and y are vectors and a and b are their respective mean values. 
+
+The formula is similar to that of the Cosine-Similarity metric however it normalizes the vector before calculating the respective dot products by subtracting the mean to the vector at each index.
+
+The similarity values will be bounded from [-1:1] where larger values equate to a stronger correlation, values close to zero show no correlation and negative values show an inverse relationship.
+~~~~~~~~~~~~~~~
+
+
 ### Running The Program
 
-Download all necessary txt files(‘movies.txt’ & movieRatings.txt’) and the ‘MovieRecommendation.py’ file. Simply run the python file using command ’python MovieRecommendation.py’ on command line or program of choice. You will then be asked to rate 50 random movies. Your rating profile will be saved in your current directory as ‘profile.txt’. The list of recommended movies will be saved as ‘cosRecommendedMovies.txt’ for movies recommended by the Cosine similarity metric and as ‘jacRecommendedMovies.txt’ for movies recommended by the Jaccard similarity metric.
+Download all necessary txt files(‘movies.txt’ & movieRatings.txt’) and the ‘MovieRecommendation.py’ file. Simply run the python file using command ’python MovieRecommendation.py’ on command line or program of choice. You will then be asked to rate 50 random movies. Your rating profile will be saved in your current directory as ‘profile.txt’. The list of recommended movies will be saved as ‘cosRecommendedMovies.txt’, ‘jacRecommendedMovies.txt’ and ‘pccRecommendedMovies.txt’ for movies recommended by Cosine, Jacccard, and PCC metrics respectively.
 
 
 ### Files
@@ -74,16 +85,23 @@ computeJacSim(user1, user2):
 -similar parameters as computeCosSim() method
 -Returns Jaccard similarity value
 
+computePccSim(user1, user2, user1Mean):
+-Computes the Pearson Correlation coefficient value [-1:1]
+-similar to computeCosSim but attempts to normalize the rating vectors
+-Returns PCC value
+
+
+computeMean(user1):
+-Computes the mean of the given vector of movie ratings
+-Returns the mean value
+-Used to calculate the program user mean
+
 computeRecommendation(ratingFile, moviesFile, userFile, recCosFile, recJacFile):
--Utilizes the dictionary of ratings and computes the cosine and jaccard similarity of each user to the original user
--Two lists of users based on their cosine similarity metric and jacquard similarity metric are created and sorted from 	greatest to least(most similar to least similar)
+-Utilizes the dictionary of ratings and computes the cosine, jaccard, and PCC similarity of each user to the original user
+-Three lists of users based on their each of the three metrics are created and sorted from greatest to least(most similar to least similar)
 -The 5 most similar users are then analyzed to find at most five movies to recommend to the original user that they have not yet seen.
 -Movies that are rated a 5 by the similar users are added to a recommendation list.
--Two separate lists of recommended movies based on their respective similarity metric are then written to the given text files.
-
-getSimilarityType():
--Asks user for which similarity metric they prefer to use
--Returns 0 for Cosine similarity and 1 for Jaccard similarity
+-Three separate lists of recommended movies based on their respective similarity metric are then written to the given text files.
 
 printMoviesFromFile(filename):
 -Reads in given file of movies
