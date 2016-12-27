@@ -90,7 +90,6 @@ computePccSim(user1, user2, user1Mean):
 -similar to computeCosSim but attempts to normalize the rating vectors
 -Returns PCC value
 
-
 computeMean(user1):
 -Computes the mean of the given vector of movie ratings
 -Returns the mean value
