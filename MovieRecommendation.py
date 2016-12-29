@@ -336,17 +336,18 @@ def printRecommendedMovies(file1, file2, file3):
             printMoviesFromFile(file1)
             
             print("Would you also like to view recommended movies based on the other similarity metrics?")
-            print("Enter J to view Movies based on the Jaccard-Similarity metric.")
+            print("Enter J to view movies based on the Jaccard-Similarity metric.")
             print("Enter P to view movies based on the Pearson Corellation Coefficient metric.")
 
             simType = raw_input("Enter Q to quit.\n").lower().strip()
+
 
     	elif simType == "j":
             print("Here are your recommendations based on Jaccard similarity. \n")
             printMoviesFromFile(file2)
 
             print("Would you also like to view recommended movies based on the other similarity metrics?")
-            print("Enter C to view Movies based on the Cosine-Similarity metric.")
+            print("Enter C to view movies based on the Cosine-Similarity metric.")
             print("Enter P to view movies based on the Pearson Corellation Coefficient metric.")
             simType = raw_input("Enter Q to quit.\n").lower().strip()
 
@@ -355,8 +356,8 @@ def printRecommendedMovies(file1, file2, file3):
             printMoviesFromFile(file3)
 
             print("Would you also like to view recommended movies based on the other similarity metrics?")
-            print("Enter C to view Movies based on the Cosine-Similarity metric.")
-            print("Enter J to view movies based on the Jaccard-Similarity metric.\n")
+            print("Enter C to view movies based on the Cosine-Similarity metric.")
+            print("Enter J to view movies based on the Jaccard-Similarity metric.")
             simType = raw_input("Enter Q to quit.\n").lower().strip()
 
         else:
