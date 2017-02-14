@@ -1,5 +1,5 @@
 # Movie Recommendation Program
-This Movie Recommendation program utilizes collaborative filtering to recommend movies the user may enjoy. Data used is original data from MovieLens(link below). It will ask the user to rate 50 random movies on a scale from 0 to 5 where the 0 value means that the user has not seen the movie. The ratings are then stored as a vector where the remaining movies that were not mentioned will have a rating of 0. This vector is then compared to other user’s ratings using two different similarity measurements: Cosine similarity and Jaccard similarity. The 5 most similar user vectors are then utilized to recommend up to five different movies which are outputted to the console and as a text file. Movies that are recommended must have been rated a 5 by the recorded similar user. Two lists of recommended movies are created based on the two different similarity metrics and both lists can then be viewed. 
+This Movie Recommendation program utilizes collaborative filtering to recommend movies the user may enjoy. Data used is original data from MovieLens(link below). It will ask the user to rate 50 random movies on a scale from 0 to 5 where the 0 value means that the user has not seen the movie. The ratings are then stored as a vector where the remaining movies that were not mentioned will have a rating of 0. This vector is then compared to other user’s ratings using three different similarity measurements: Cosine similarity, Jaccard index and Pearson Correlation Coefficient. The 5 most similar user vectors are then utilized to recommend up to five different movies which are outputted to the console and as a text file. Movies that are recommended must have been rated a 5 by the recorded similar user. Two lists of recommended movies are created based on the two different similarity metrics and both lists can then be viewed. 
 
 
 ### Similarity Metrics
@@ -20,7 +20,7 @@ The similarity values will be bounded from [0:1] where larger values equate to a
 ~~~~~~~~~~~~~~~
 
 
-***Jaccard Similarity:*** 
+***Jaccard Index:*** 
 ~~~~~~~~~~~~~~~
 This approach defines the similarity between users x and y as:
 sim(x,y) = (x ∩ y)/ (x ∪ y) where x and y are vectors.
